@@ -1,21 +1,22 @@
 package ac.kntu;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
+        String SQL = "SELECT * FROM account";
+
         DatabaseConnection databaseConnection = new DatabaseConnection();
-        Connection conn = databaseConnection.connect();
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM mytable");
-        ResultSet rs = st.executeQuery();
-        while (rs.next())
-        {
-            System.out.print("Column 1 returned ");
-            System.out.println(rs.getString(1));
+        try (Connection conn = databaseConnection.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQL)) {
+            System.out.println(rs);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
-        rs.close();
-        st.close();
     }
 }
