@@ -11,6 +11,9 @@ public class Bus {
         this.is_vip = is_vip;
     }
 
+    public Bus() {
+    }
+
     public int getBus_id() {
         return bus_id;
     }
