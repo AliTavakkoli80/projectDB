@@ -1,4 +1,4 @@
-package ac.kntu;
+package Repository;
 
 import java.sql.*;
 
@@ -11,7 +11,8 @@ public class DatabaseConnection {
 
     private Connection connection;
     private String error;
-    private PreparedStatement stmt;
+
+    public PreparedStatement stmt;
     private boolean dbconnected;
 
     public DatabaseConnection() {
@@ -39,6 +40,9 @@ public class DatabaseConnection {
     public ResultSet execute() throws SQLException {
         return this.stmt.executeQuery();
     }
+    public int executeUp() throws SQLException {
+        return this.stmt.executeUpdate();
+    }
 
     //Get Record Row Count
     public int rowCount(String tableName) throws SQLException {
@@ -51,10 +55,10 @@ public class DatabaseConnection {
     }
 
     public String getError() {
-        return error;
+        return this.error;
     }
 
     public boolean isDbconnected() {
-        return dbconnected;
+        return this.dbconnected;
     }
 }
