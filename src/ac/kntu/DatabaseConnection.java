@@ -1,7 +1,6 @@
 package ac.kntu;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 
 public class DatabaseConnection {
@@ -10,16 +9,36 @@ public class DatabaseConnection {
     private final String user = "postgres";
     private final String password = "ali-1380-";
 
-    public Connection connect() {
-        Connection conn = null;
+    private Connection connection;
+    private String error;
+    private PreparedStatement stmt;
+    private boolean dbconnected;
+
+    public DatabaseConnection() {
+        this.error = "";
         try {
-            conn = DriverManager.getConnection(url, user, password);
+            this.connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to the PostgreSQL server successfully.");
+            this.dbconnected = true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            this.error += e.getMessage();
+            this.dbconnected = false;
         }
 
-        return conn;
     }
+
+    //Prepare Statement with Query
+    public void query(String query)
+    {
+        try {
+            this.stmt = this.connection.prepareStatement(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.error += e.getMessage();
+            this.dbconnected = false;
+        }
+    }
+
 
 }
