@@ -13,10 +13,18 @@ public class Main {
         try (Connection conn = databaseConnection.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(SQL)) {
-            System.out.println(rs);
+
+            while (rs.next()) {
+                System.out.println(rs.getString("account_number") + "\t"
+                        + rs.getString("userphone_number") + "\t"
+                        + rs.getString("shaba_number") + "\t"
+                        + rs.getString("balance"));
+
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
     }
 }
