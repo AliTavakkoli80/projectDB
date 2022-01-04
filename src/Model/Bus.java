@@ -34,4 +34,13 @@ public class Bus {
     public void setIs_vip(boolean is_vip) {
         this.is_vip = is_vip;
     }
+
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "bus_id=" + bus_id +
+                ", bus_capacity=" + bus_capacity +
+                ", is_vip=" + is_vip +
+                '}';
+    }
 }

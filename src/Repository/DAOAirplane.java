@@ -39,6 +39,7 @@ public class DAOAirplane implements Repo<AirPlane, Integer> {
 
     private void generateAirplane(AirPlane airPlane) throws SQLException {
         ResultSet rs = this.db.execute();
+        rs.next();
         int id = rs.getInt("id");
         int capacity = rs.getInt("capacity");
         int max_load = rs.getInt("max_load");
@@ -77,7 +78,8 @@ public class DAOAirplane implements Repo<AirPlane, Integer> {
     public Boolean deleteByIDs(Collection<Integer> integers) throws SQLException {
         int numRowAff = 0;
         for (int id : integers) {
-            this.db.query("DELETE FROM airplane WHERE " + id);
+            this.db.query("DELETE FROM airplane WHERE id = " + id);
+            this.db.executeUp();
             numRowAff++;
         }
         return numRowAff == integers.size();
@@ -85,7 +87,7 @@ public class DAOAirplane implements Repo<AirPlane, Integer> {
 
     @Override
     public Boolean add(AirPlane E) throws SQLException {
-        this.db.query("INSERT INTO account (id, capacity, max_load) VALUES(?,?,?) ");
+        this.db.query("INSERT INTO airplane (id, capacity, max_load) VALUES(?,?,?) ");
         db.stmt.setInt(1, E.getId());
         db.stmt.setInt(2, E.getCapacity());
         db.stmt.setInt(3, E.getMax_load());
