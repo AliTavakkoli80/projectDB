@@ -9,8 +9,6 @@ public class Main {
 
         try {
             int numr = databaseConnection.rowCount("account");
-            databaseConnection.
-            System.out.println(numr);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
